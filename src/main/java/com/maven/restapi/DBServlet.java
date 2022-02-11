@@ -4,7 +4,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -28,13 +27,12 @@ public class DBServlet {
     @Produces(MediaType.TEXT_PLAIN)
     public String displayAll() throws SQLException, ClassNotFoundException {
         DBOperations.getDBConnection();
-        PrintWriter out = new PrintWriter(System.out);
         ArrayList<DBOperations.Student> list = DBOperations.display();
-        String res = "Num" + "\t" + "Name" + "\t" + "Branch" + "\t" + "Section" + "\t" + "Course"  + "\n";
+        String records = "Num" + "\t" + "Name" + "\t" + "Branch" + "\t" + "Section" + "\t" + "Course"  + "\n";
         for(DBOperations.Student st : list) {
-            res += st.getNum() + "\t" + st.getName() + "\t" + st.getBranch() + "\t" + st.getSection() + "\t" + st.getCourse() + "\n";
+            records += st.getNum() + "\t" + st.getName() + "\t" + st.getBranch() + "\t" + st.getSection() + "\t" + st.getCourse() + "\n";
         }
-        return res;
+        return records;
     }
 
     @Path("update")
